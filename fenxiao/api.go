@@ -44,7 +44,7 @@ func (c *Api) CreateOrder(address *trade.Address, cargo []trade.Cargo, offers []
 		Flow:           "fenxiao",
 	}
 	resp := &model.CreateOrderResp{}
-	err := c.client.Do(models.NewRequest(consts.FENXIAO_NAMESPACE, req), resp)
+	err := c.client.Do(models.NewRequest(consts.TRADE_SPACE, req), resp)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +58,7 @@ func (c *Api) OrderPreview(address *trade.Address, cargo []trade.Cargo) (*model.
 		Flow:      "saleproxy",
 	}
 	resp := &model.CreateOrderPreviewResp{}
-	err := c.client.Do(models.NewRequest(consts.FENXIAO_NAMESPACE, req), resp)
+	err := c.client.Do(models.NewRequest(consts.TRADE_SPACE, req), resp)
 	if err != nil {
 		return nil, err
 	}
