@@ -24,11 +24,11 @@ type ProductResp struct {
 	ProductInfo *ProductInfo `json:"productInfo"`
 }
 type ProductInfo struct {
-	ProductID    uint64   `json:"productID,omitempty"`
+	ProductId    uint64   `json:"productID,omitempty"`
 	ProductType  string   `json:"productType,omitempty"`
-	CategoryID   uint64   `json:"categoryID,omitempty"`
+	CategoryId   uint64   `json:"categoryID,omitempty"`
 	CategoryName string   `json:"categoryName,omitempty"`
-	GroupID      []uint64 `json:"groupID,omitempty"`
+	GroupId      []uint64 `json:"groupID,omitempty"`
 	Subject      string   `json:"subject,omitempty"`
 	Description  string   `json:"description,omitempty"`
 	BizType      int64    `json:"bizType,omitempty"`
@@ -40,7 +40,7 @@ type ProductInfo struct {
 	ProductSaleInfo     *product.SaleInfo       `json:"productSaleInfo,omitempty"`
 	ProductShippingInfo *product.ShippingInfo   `json:"productShippingInfo,omitempty"`
 	QualityLevel        int                     `json:"qualityLevel,omitempty"`
-	SupplierLoginID     string                  `json:"supplierLoginId,omitempty"`
+	SupplierLoginId     string                  `json:"supplierLoginId,omitempty"`
 	MainVideo           string                  `json:"mainVedio,omitempty"`
 	ProductCargoNumber  string                  `json:"productCargoNumber,omitempty"`
 	ReferencePrice      string                  `json:"referencePrice,omitempty"`

@@ -3,6 +3,7 @@ package pay
 import (
 	"github.com/wzhsh90/go1688/models"
 	"github.com/wzhsh90/go1688/utils"
+	"strconv"
 )
 
 type PreparePayReq struct {
@@ -28,6 +29,26 @@ type PreparePayResp struct {
 type PreparePayRespResult struct {
 	PayChannel string `json:"payChannel,omitempty"`
 	PaySuccess bool   `json:"paySuccess,omitempty"`
+}
+
+type ProtocolPayReq struct {
+	OrderId uint64 `json:"orderId,omitempty"`
+}
+
+func (r ProtocolPayReq) Name() string {
+	return "alibaba.trade.pay.protocolPay"
+}
+
+func (r ProtocolPayReq) Params() map[string]string {
+	return map[string]string{
+		"orderId": strconv.FormatUint(r.OrderId, 10),
+	}
+}
+
+type ProtocolPayResp struct {
+	models.BaseBoolResponse
+	Code    string `json:"code,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 type CancelPayReq struct {

@@ -13,7 +13,7 @@ type CreateOrderReq struct {
 	OuterOrderInfo  *trade.OuterOrderInfo `json:"outerOrderInfo,omitempty"`
 	TradeType       string                `json:"tradeType,omitempty"`
 	Flow            string                `json:"flow,omitempty"`
-	ShopPromotionID string                `json:"shopPromotionId,omitempty"`
+	ShopPromotionId string                `json:"shopPromotionId,omitempty"`
 	IsvBizTypeStr   string                `json:"isvBizTypeStr,omitempty"`
 	IsvBiztypeErp   bool                  `json:"isvbiztypeErp,omitempty"`
 	IsvBizTypePD    bool                  `json:"isvBizTypePD,omitempty"`
@@ -43,8 +43,8 @@ func (r CreateOrderReq) Params() map[string]string {
 	if r.Flow != "" {
 		ret["flow"] = r.Flow
 	}
-	if r.ShopPromotionID != "" {
-		ret["shopPromotionId"] = r.ShopPromotionID
+	if r.ShopPromotionId != "" {
+		ret["shopPromotionId"] = r.ShopPromotionId
 	}
 	if r.IsvBiztypeErp {
 		ret["isvbiztypeErp"] = "true"

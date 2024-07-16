@@ -5,7 +5,7 @@ import (
 )
 
 type Template struct {
-	ID        uint64 `json:"msgId"`
+	MsgId     uint64 `json:"msgId"`
 	GmtBorn   int64  `json:"gmtBorn"`
 	Data      string `json:"data"`
 	UserInfo  string `json:"userInfo"`

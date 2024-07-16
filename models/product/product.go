@@ -28,12 +28,12 @@ type PriceRange struct {
 
 // ShippingInfo 商品物流信息
 type ShippingInfo struct {
-	FreightTemplateID    uint64  `json:"freightTemplateID,omitempty"`
+	FreightTemplateId    uint64  `json:"freightTemplateID,omitempty"`
 	UnitWeight           float64 `json:"unitWeight,omitempty"`
 	PackageSize          string  `json:"packageSize,omitempty"`
 	Volumn               int64   `json:"volumn,omitempty"`
 	HandlingTime         int     `json:"handlingTime,omitempty"`
-	SendGoodsAddressID   uint64  `json:"sendGoodsAddressId,omitempty"`
+	SendGoodsAddressId   uint64  `json:"sendGoodsAddressId,omitempty"`
 	SendGoodsAddressText string  `json:"sendGoodsAddressText,omitempty"`
 	SuttleWeight         float64 `json:"suttleWeight,omitempty"`
 	Height               float64 `json:"height,omitempty"`

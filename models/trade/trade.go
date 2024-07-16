@@ -143,26 +143,26 @@ type OrderBaseInfo struct {
 	SellerCreditLevel string          `json:"sellerCreditLevel,omitempty"`
 	PayTime           string          `json:"payTime,omitempty"`
 	Discount          int64           `json:"discount,omitempty"`
-	AlipayTradeID     string          `json:"alipayTradeId,omitempty"`
+	AlipayTradeId     string          `json:"alipayTradeId,omitempty"`
 	SumProductPayment decimal.Decimal `json:"sumProductPayment,omitempty"`
 	BuyerFeedback     string          `json:"buyerFeedback,omitempty"`
 	FlowTemplateCode  string          `json:"flowTemplateCode,omitempty"`
 	SellerOrder       bool            `json:"sellerOrder,omitempty"`
-	BuyerLoginID      string          `json:"buyerLoginId,omitempty"`
+	BuyerLoginId      string          `json:"buyerLoginId,omitempty"`
 	ModifyTime        string          `json:"modifyTime,omitempty"`
-	SubBuyerLoginID   string          `json:"subBuyerLoginId,omitempty"`
+	SubBuyerLoginId   string          `json:"subBuyerLoginId,omitempty"`
 	Id                uint64          `json:"id,omitempty"`
 	CloseReason       string          `json:"closeReason,omitempty"`
 	BuyerContact      *Contact        `json:"buyerContact,omitempty"`
-	SellerAlipayID    string          `json:"sellerAlipayId,omitempty"`
+	SellerAlipayId    string          `json:"sellerAlipayId,omitempty"`
 	CompleteTime      string          `json:"completeTime,omitempty"`
-	SellerLoginID     string          `json:"sellerLoginId,omitempty"`
-	BuyerID           string          `json:"buyerID,omitempty"`
+	SellerLoginId     string          `json:"sellerLoginId,omitempty"`
+	BuyerId           string          `json:"buyerID,omitempty"`
 	CloseOperateType  string          `json:"closeOperateType,omitempty"`
 	TotalAmount       decimal.Decimal `json:"totalAmount,omitempty"`
-	SellerID          string          `json:"sellerID,omitempty"`
+	SellerId          string          `json:"sellerID,omitempty"`
 	ShippingFee       decimal.Decimal `json:"shippingFee,omitempty"`
-	BuyerUserID       uint64          `json:"buyerUserId,omitempty"`
+	BuyerUserId       uint64          `json:"buyerUserId,omitempty"`
 	BuyerMemo         string          `json:"buyerMemo,omitempty"`
 	Refund            decimal.Decimal `json:"refund,omitempty"`
 	Status            string          `json:"status,omitempty"`
@@ -170,7 +170,7 @@ type OrderBaseInfo struct {
 	SellerContact     *Contact        `json:"sellerContact,omitempty"`
 	RefundStatus      string          `json:"refundStatus,omitempty"`
 	Remark            string          `json:"remark,omitempty"`
-	PreOrderID        uint64          `json:"preOrderId,omitempty"`
+	PreOrderId        uint64          `json:"preOrderId,omitempty"`
 	ConfirmedTime     string          `json:"confirmedTime,omitempty"`
 	CloseRemark       string          `json:"closeRemark,omitempty"`
 	TradeType         string          `json:"tradeType,omitempty"`
@@ -185,7 +185,7 @@ type OrderBaseInfo struct {
 	CreateTime        string          `json:"createTime,omitempty"`
 	BusinessType      string          `json:"businessType,omitempty"`
 	OverSeaOrder      bool            `json:"overSeaOrder,omitempty"`
-	RefundID          string          `json:"refundId,omitempty"`
+	RefundId          string          `json:"refundId,omitempty"`
 	TradeTypeDesc     string          `json:"tradeTypeDesc,omitempty"`
 	PayChannelList    []string        `json:"payChannelList,omitempty"`
 	TradeTypeCode     string          `json:"tradeTypeCode,omitempty"`
@@ -229,7 +229,7 @@ type StepOrder struct {
 	MessagePath          string          `json:"messagePath,omitempty"`
 	PicturePath          string          `json:"picturePath,omitempty"`
 	Message              string          `json:"message,omitempty"`
-	TemplateID           uint64          `json:"templateId,omitempty"`
+	TemplateId           uint64          `json:"templateId,omitempty"`
 	Name                 string          `json:"stepName,omitempty"`
 	SellerActionName     string          `json:"sellerActionName,omitempty"`
 	BuyerPayTimeout      int64           `json:"buyerPayTimeout,omitempty"`
@@ -318,8 +318,8 @@ type ProductItemInfo struct {
 	GmtCompleted       string               `json:"gmtCompleted,omitempty"`
 	GmtPayExpireTime   string               `json:"gmtPayExpireTime,omitempty"`
 	RefundId           string               `json:"refundId,omitempty"`
-	SubItemIDString    string               `json:"subItemIDString,omitempty"`
-	RefundIDForAs      string               `json:"refundIdForAs,omitempty"`
+	SubItemIdString    string               `json:"subItemIDString,omitempty"`
+	RefundIdForAs      string               `json:"refundIdForAs,omitempty"`
 }
 
 type SkuItemDesc struct {
@@ -365,11 +365,11 @@ type NativeLogisticsItemInfo struct {
 	FromPhone            string          `json:"fromPhone,omitempty"`
 	FromMobile           string          `json:"fromMobile,omitempty"`
 	FromPost             string          `json:"fromPost,omitempty"`
-	LogisticsCompanyID   uint64          `json:"logisticsCompanyId,omitempty"`
+	LogisticsCompanyId   uint64          `json:"logisticsCompanyId,omitempty"`
 	LogisticesCompanyNo  string          `json:"logisticsCompanyNo,omitempty"`
 	LogisticsCompanyName string          `json:"logisticsCompanyName,omitempty"`
 	LogisticsBillNo      string          `json:"logisticsBillNo,omitempty"`
-	SubItemIDs           string          `json:"subItemIds,omitempty"`
+	SubItemIds           string          `json:"subItemIds,omitempty"`
 	ToProvince           string          `json:"toProvince,omitempty"`
 	ToCity               string          `json:"toCity,omitempty"`
 	ToArea               string          `json:"toArea,omitempty"`
@@ -436,8 +436,8 @@ type OrderCustoms struct {
 	Id          uint64                  `json:"id,omitempty"`
 	GmtCreate   string                  `json:"gmtCreate,omitempty"`
 	GmtModified string                  `json:"gmtModified,omitempty"`
-	BuyerID     uint64                  `json:"buyerId,omitempty"`
-	OrderID     uint64                  `json:"orderId,omitempty"`
+	BuyerId     uint64                  `json:"buyerId,omitempty"`
+	OrderId     uint64                  `json:"orderId,omitempty"`
 	Type        int                     `json:"type,omitempty"`
 	Attributes  []CustomerAttributeInfo `json:"attributes,omitempty"`
 }

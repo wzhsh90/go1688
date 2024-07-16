@@ -17,7 +17,7 @@ type SkuInfo struct {
 	AmountOnSale    int64           `json:"amountOnSale,omitempty"`
 	RetailPrice     decimal.Decimal `json:"retailPrice,omitempty"`
 	Price           decimal.Decimal `json:"price,omitempty"`
-	SpecID          string          `json:"specId,omitempty"`
+	SpecId          string          `json:"specId,omitempty"`
 	ConsignPrice    decimal.Decimal `json:"consignPrice,omitempty"`
 	CpsSuggestPrice decimal.Decimal `json:"cpsSuggestPrice,omitempty"`
 	ChannelPrice    decimal.Decimal `json:"channelPrice,omitempty"`

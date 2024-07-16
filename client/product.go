@@ -1,6 +1,5 @@
 package client
 
-import "C"
 import (
 	"github.com/wzhsh90/go1688/consts"
 	"github.com/wzhsh90/go1688/fenxiao/model"

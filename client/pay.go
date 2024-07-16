@@ -17,6 +17,17 @@ func (c *Client) PreparePay(orderId uint64) (bool, error) {
 	}
 	return resp.Result.PaySuccess, nil
 }
+func (c *Client) ProtocolPay(orderId uint64) (bool, error) {
+	req := &pay.ProtocolPayReq{
+		OrderId: orderId,
+	}
+	resp := &pay.ProtocolPayResp{}
+	err := c.Do(models.NewRequest(consts.TRADE_SPACE, req), resp)
+	if err != nil {
+		return false, err
+	}
+	return resp.Code == "0", nil
+}
 func (c *Client) CancelPay(orderId uint64) (bool, error) {
 	req := &pay.CancelPayReq{
 		Website: "1688",
