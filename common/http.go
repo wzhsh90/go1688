@@ -3,6 +3,7 @@ package common
 import (
 	"bytes"
 	"crypto/tls"
+	"errors"
 	"github.com/valyala/fasthttp"
 	"io"
 	"mime/multipart"
@@ -13,7 +14,11 @@ var httpClient = &fasthttp.Client{}
 
 func Get(url string, headers map[string]string) (respDa []byte, err error) {
 	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
+	resp := fasthttp.AcquireResponse()
+	defer func() {
+		fasthttp.ReleaseRequest(req)
+		fasthttp.ReleaseResponse(resp)
+	}()
 	req.SetRequestURI(url)
 	req.Header.SetMethod(fasthttp.MethodGet)
 	if headers != nil {
@@ -21,31 +26,30 @@ func Get(url string, headers map[string]string) (respDa []byte, err error) {
 			req.Header.Add(k, v)
 		}
 	}
-	resp := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(resp)
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
 		return nil, errDo
+	}
+	body := resp.Body()
+	if body != nil {
+		return body, nil
 	} else {
-		body := resp.Body()
-		if body != nil {
-			return body, nil
-		} else {
-			return []byte(""), nil
-		}
+		return nil, errors.New("empty")
 	}
 }
 
 func PostXml(path string, xmlString string, tlsConfig *tls.Config, timeout time.Duration) ([]byte, error) {
 
 	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
+	resp := fasthttp.AcquireResponse()
+	defer func() {
+		fasthttp.ReleaseRequest(req)
+		fasthttp.ReleaseResponse(resp)
+	}()
 	req.SetRequestURI(path)
 	req.Header.SetMethod(fasthttp.MethodPost)
 	req.Header.SetContentType("application/xml")
 	req.SetBodyString(xmlString)
-	resp := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(resp)
 	httpClient.WriteTimeout = timeout
 	httpClient.ReadTimeout = timeout
 	if tlsConfig != nil {
@@ -54,18 +58,21 @@ func PostXml(path string, xmlString string, tlsConfig *tls.Config, timeout time.
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
 		return nil, errDo
+	}
+	body := resp.Body()
+	if body != nil {
+		return body, nil
 	} else {
-		body := resp.Body()
-		if body != nil {
-			return body, nil
-		} else {
-			return []byte(""), nil
-		}
+		return nil, errors.New("empty")
 	}
 }
 func PostFile(url string, data map[string]string, headers map[string]string, nameField, fileName string, file io.Reader) (respDa []byte, err error) {
 	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
+	resp := fasthttp.AcquireResponse()
+	defer func() {
+		fasthttp.ReleaseRequest(req)
+		fasthttp.ReleaseResponse(resp)
+	}()
 	req.SetRequestURI(url)
 	bodyBufer := new(bytes.Buffer)
 	writer := multipart.NewWriter(bodyBufer)
@@ -92,24 +99,25 @@ func PostFile(url string, data map[string]string, headers map[string]string, nam
 		}
 	}
 	req.SetBody(bodyBufer.Bytes())
-	resp := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(resp)
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
 		return nil, errDo
+	}
+	body := resp.Body()
+	if body != nil {
+		return body, nil
 	} else {
-		body := resp.Body()
-		if body != nil {
-			return body, nil
-		} else {
-			return []byte(""), nil
-		}
+		return nil, errors.New("empty")
 	}
 }
 func PostJson(path string, jsonData string, headers map[string]string) ([]byte, error) {
 
 	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
+	resp := fasthttp.AcquireResponse()
+	defer func() {
+		fasthttp.ReleaseRequest(req)
+		fasthttp.ReleaseResponse(resp)
+	}()
 	req.SetRequestURI(path)
 	req.Header.SetMethod(fasthttp.MethodPost)
 	req.Header.SetContentType("application/json")
@@ -119,24 +127,25 @@ func PostJson(path string, jsonData string, headers map[string]string) ([]byte, 
 		}
 	}
 	req.SetBodyString(jsonData)
-	resp := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(resp)
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
 		return nil, errDo
+	}
+	body := resp.Body()
+	if body != nil {
+		return body, nil
 	} else {
-		body := resp.Body()
-		if body != nil {
-			return body, nil
-		} else {
-			return []byte(""), nil
-		}
+		return nil, errors.New("empty")
 	}
 }
 
 func PostForm(url string, data map[string]string, headers map[string]string) (respDa []byte, err error) {
 	req := fasthttp.AcquireRequest()
-	defer fasthttp.ReleaseRequest(req)
+	resp := fasthttp.AcquireResponse()
+	defer func() {
+		fasthttp.ReleaseRequest(req)
+		fasthttp.ReleaseResponse(resp)
+	}()
 	req.SetRequestURI(url)
 	args := req.PostArgs()
 	for k, v := range data {
@@ -149,17 +158,15 @@ func PostForm(url string, data map[string]string, headers map[string]string) (re
 			req.Header.Add(k, v)
 		}
 	}
-	resp := fasthttp.AcquireResponse()
-	defer fasthttp.ReleaseResponse(resp)
+
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
 		return nil, errDo
+	}
+	body := resp.Body()
+	if body != nil {
+		return body, nil
 	} else {
-		body := resp.Body()
-		if body != nil {
-			return body, nil
-		} else {
-			return []byte(""), nil
-		}
+		return nil, errors.New("empty")
 	}
 }
