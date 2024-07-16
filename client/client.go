@@ -14,14 +14,19 @@ type Client struct {
 	appKey      string
 	appSecret   []byte
 	accessToken string
+	debug       bool
 }
 
-func NewClient(appKey, appSecret, accessToken string) *Client {
+func NewClient(appKey, appSecret, accessToken string, debug bool) *Client {
 	return &Client{
 		appKey:      appKey,
 		appSecret:   []byte(appSecret),
 		accessToken: accessToken,
+		debug:       debug,
 	}
+}
+func (c *Client) SetDebug(debug bool) {
+	c.debug = debug
 }
 func (c *Client) Do(req models.Request, respPt models.Response) error {
 	reqPath := c.requestPath(req)
@@ -34,7 +39,9 @@ func (c *Client) Do(req models.Request, respPt models.Response) error {
 	if err != nil {
 		return err
 	}
-	println(string(respData))
+	if c.debug {
+		println(string(respData))
+	}
 	unErr := utils.Unmarshal(respData, respPt)
 	if unErr != nil {
 		return unErr
