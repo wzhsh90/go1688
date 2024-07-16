@@ -35,17 +35,20 @@ func (c *Client) Do(req models.Request, respPt models.Response) error {
 	reqParams["access_token"] = c.accessToken
 	reqParams["_aop_signature"] = utils.Sign(reqPath, c.appSecret, reqParams)
 	requestUri := c.requestUri(reqPath)
-	respData, err := common.PostForm(requestUri, reqParams, nil)
+	err := common.PostForm(requestUri, reqParams, nil, func(body []byte) error {
+		if c.debug {
+			println(string(body))
+		}
+		unErr := utils.Unmarshal(body, respPt)
+		if unErr != nil {
+			return unErr
+		}
+		return nil
+	})
 	if err != nil {
 		return err
 	}
-	if c.debug {
-		println(string(respData))
-	}
-	unErr := utils.Unmarshal(respData, respPt)
-	if unErr != nil {
-		return unErr
-	}
+
 	if respPt == nil {
 		return errors.New("response nil")
 	}

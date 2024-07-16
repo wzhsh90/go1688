@@ -12,7 +12,7 @@ import (
 
 var httpClient = &fasthttp.Client{}
 
-func Get(url string, headers map[string]string) (respDa []byte, err error) {
+func Get(url string, headers map[string]string, handler RespHandler) error {
 	req := fasthttp.AcquireRequest()
 	resp := fasthttp.AcquireResponse()
 	defer func() {
@@ -28,18 +28,17 @@ func Get(url string, headers map[string]string) (respDa []byte, err error) {
 	}
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
-		return nil, errDo
+		return errDo
 	}
 	body := resp.Body()
 	if body != nil {
-		//这里只能返回复制，不然有隐藏bug
-		return bytes.Clone(body), nil
+		return handler(body)
 	} else {
-		return nil, errors.New("empty")
+		return errors.New("empty")
 	}
 }
 
-func PostXml(path string, xmlString string, tlsConfig *tls.Config, timeout time.Duration) ([]byte, error) {
+func PostXml(path string, xmlString string, tlsConfig *tls.Config, timeout time.Duration, handler RespHandler) error {
 
 	req := fasthttp.AcquireRequest()
 	resp := fasthttp.AcquireResponse()
@@ -58,17 +57,16 @@ func PostXml(path string, xmlString string, tlsConfig *tls.Config, timeout time.
 	}
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
-		return nil, errDo
+		return errDo
 	}
 	body := resp.Body()
 	if body != nil {
-		//这里只能返回复制，不然有隐藏bug
-		return bytes.Clone(body), nil
+		return handler(body)
 	} else {
-		return nil, errors.New("empty")
+		return errors.New("empty")
 	}
 }
-func PostFile(url string, data map[string]string, headers map[string]string, nameField, fileName string, file io.Reader) (respDa []byte, err error) {
+func PostFile(url string, data map[string]string, headers map[string]string, nameField, fileName string, file io.Reader, handler RespHandler) error {
 	req := fasthttp.AcquireRequest()
 	resp := fasthttp.AcquireResponse()
 	defer func() {
@@ -80,18 +78,18 @@ func PostFile(url string, data map[string]string, headers map[string]string, nam
 	writer := multipart.NewWriter(bodyBufer)
 	formFile, err := writer.CreateFormFile(nameField, fileName)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	_, err = io.Copy(formFile, file)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	for key, val := range data {
 		_ = writer.WriteField(key, val)
 	}
 	err = writer.Close()
 	if err != nil {
-		return nil, err
+		return err
 	}
 	req.Header.SetMethod(fasthttp.MethodPost)
 	req.Header.SetContentType(writer.FormDataContentType())
@@ -103,17 +101,16 @@ func PostFile(url string, data map[string]string, headers map[string]string, nam
 	req.SetBody(bodyBufer.Bytes())
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
-		return nil, errDo
+		return errDo
 	}
 	body := resp.Body()
 	if body != nil {
-		//这里只能返回复制，不然有隐藏bug
-		return bytes.Clone(body), nil
+		return handler(body)
 	} else {
-		return nil, errors.New("empty")
+		return errors.New("empty")
 	}
 }
-func PostJson(path string, jsonData string, headers map[string]string) ([]byte, error) {
+func PostJson(path string, jsonData string, headers map[string]string, handler RespHandler) error {
 
 	req := fasthttp.AcquireRequest()
 	resp := fasthttp.AcquireResponse()
@@ -132,18 +129,17 @@ func PostJson(path string, jsonData string, headers map[string]string) ([]byte, 
 	req.SetBodyString(jsonData)
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
-		return nil, errDo
+		return errDo
 	}
 	body := resp.Body()
 	if body != nil {
-		//这里只能返回复制，不然有隐藏bug
-		return bytes.Clone(body), nil
+		return handler(body)
 	} else {
-		return nil, errors.New("empty")
+		return errors.New("empty")
 	}
 }
 
-func PostForm(url string, data map[string]string, headers map[string]string) (respDa []byte, err error) {
+func PostForm(url string, data map[string]string, headers map[string]string, handler RespHandler) error {
 	req := fasthttp.AcquireRequest()
 	resp := fasthttp.AcquireResponse()
 	defer func() {
@@ -162,16 +158,14 @@ func PostForm(url string, data map[string]string, headers map[string]string) (re
 			req.Header.Add(k, v)
 		}
 	}
-
 	errDo := httpClient.Do(req, resp)
 	if errDo != nil {
-		return nil, errDo
+		return errDo
 	}
 	body := resp.Body()
 	if body != nil {
-		//这里只能返回复制，不然有隐藏bug
-		return bytes.Clone(body), nil
+		return handler(body)
 	} else {
-		return nil, errors.New("empty")
+		return errors.New("empty")
 	}
 }
