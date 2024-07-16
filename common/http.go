@@ -32,7 +32,8 @@ func Get(url string, headers map[string]string) (respDa []byte, err error) {
 	}
 	body := resp.Body()
 	if body != nil {
-		return body, nil
+		//这里只能返回复制，不然有隐藏bug
+		return bytes.Clone(body), nil
 	} else {
 		return nil, errors.New("empty")
 	}
@@ -61,7 +62,8 @@ func PostXml(path string, xmlString string, tlsConfig *tls.Config, timeout time.
 	}
 	body := resp.Body()
 	if body != nil {
-		return body, nil
+		//这里只能返回复制，不然有隐藏bug
+		return bytes.Clone(body), nil
 	} else {
 		return nil, errors.New("empty")
 	}
@@ -105,7 +107,8 @@ func PostFile(url string, data map[string]string, headers map[string]string, nam
 	}
 	body := resp.Body()
 	if body != nil {
-		return body, nil
+		//这里只能返回复制，不然有隐藏bug
+		return bytes.Clone(body), nil
 	} else {
 		return nil, errors.New("empty")
 	}
@@ -133,7 +136,8 @@ func PostJson(path string, jsonData string, headers map[string]string) ([]byte, 
 	}
 	body := resp.Body()
 	if body != nil {
-		return body, nil
+		//这里只能返回复制，不然有隐藏bug
+		return bytes.Clone(body), nil
 	} else {
 		return nil, errors.New("empty")
 	}
@@ -165,7 +169,8 @@ func PostForm(url string, data map[string]string, headers map[string]string) (re
 	}
 	body := resp.Body()
 	if body != nil {
-		return body, nil
+		//这里只能返回复制，不然有隐藏bug
+		return bytes.Clone(body), nil
 	} else {
 		return nil, errors.New("empty")
 	}
