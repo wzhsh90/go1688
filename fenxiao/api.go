@@ -43,7 +43,7 @@ func (c *Api) CreateOrder(address *trade.Address, cargo []trade.Cargo, offers []
 		IsvBizTypeStr:  "fenxiaoMedia",
 		Flow:           "fenxiao",
 	}
-	resp := &model.CreateOrderResp{}
+	resp := &trade.CreateOrderResp{}
 	err := c.client.Do(models.NewRequest(consts.TRADE_SPACE, req), resp)
 	if err != nil {
 		return nil, err
@@ -51,13 +51,13 @@ func (c *Api) CreateOrder(address *trade.Address, cargo []trade.Cargo, offers []
 	return resp.Result, nil
 
 }
-func (c *Api) OrderPreview(address *trade.Address, cargo []trade.Cargo) (*model.CreateOrderPreviewResp, error) {
+func (c *Api) OrderPreview(address *trade.Address, cargo []trade.Cargo) (*trade.CreateOrderPreviewResp, error) {
 	req := &model.CreateOrderPreviewReq{
 		Address:   address,
 		CargoList: cargo,
 		Flow:      "saleproxy",
 	}
-	resp := &model.CreateOrderPreviewResp{}
+	resp := &trade.CreateOrderPreviewResp{}
 	err := c.client.Do(models.NewRequest(consts.TRADE_SPACE, req), resp)
 	if err != nil {
 		return nil, err

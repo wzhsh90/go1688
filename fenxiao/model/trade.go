@@ -1,7 +1,6 @@
 package model
 
 import (
-	"github.com/wzhsh90/go1688/models"
 	"github.com/wzhsh90/go1688/models/trade"
 	"github.com/wzhsh90/go1688/utils"
 )
@@ -56,11 +55,6 @@ func (r CreateOrderReq) Params() map[string]string {
 	return ret
 }
 
-type CreateOrderResp struct {
-	models.BaseBoolResponse
-	Result *trade.CreateOrderResult `json:"result,omitempty"`
-}
-
 type CreateOrderPreviewReq struct {
 	Address         *trade.Address `json:"addressParam,omitempty"`
 	CargoList       []trade.Cargo  `json:"cargoParamList,omitempty"`
@@ -87,11 +81,4 @@ func (r CreateOrderPreviewReq) Params() map[string]string {
 		ret["flow"] = r.Flow
 	}
 	return ret
-}
-
-type CreateOrderPreviewResp struct {
-	models.BaseBoolResponse
-	PostFeeByDescOfferList []uint64             `json:"postFeeByDescOfferList,omitempty"`
-	ConsignOfferList       []uint64             `json:"consignOfferList,omitempty"`
-	OrderPreview           []trade.OrderPreview `json:"orderPreviewResuslt,omitempty"`
 }

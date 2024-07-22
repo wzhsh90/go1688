@@ -463,3 +463,14 @@ type KeyValuePair struct {
 	Value       string `json:"value,omitempty"`
 	Description string `json:"description,omitempty"`
 }
+type CreateOrderResp struct {
+	models.BaseBoolResponse
+	Result *CreateOrderResult `json:"result,omitempty"`
+}
+
+type CreateOrderPreviewResp struct {
+	models.BaseBoolResponse
+	PostFeeByDescOfferList []uint64       `json:"postFeeByDescOfferList,omitempty"`
+	ConsignOfferList       []uint64       `json:"consignOfferList,omitempty"`
+	OrderPreview           []OrderPreview `json:"orderPreviewResuslt,omitempty"`
+}
