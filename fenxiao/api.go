@@ -1,11 +1,13 @@
 package fenxiao
 
 import (
+	"errors"
 	"github.com/wzhsh90/go1688/client"
 	"github.com/wzhsh90/go1688/consts"
 	"github.com/wzhsh90/go1688/fenxiao/model"
 	"github.com/wzhsh90/go1688/models"
 	"github.com/wzhsh90/go1688/models/trade"
+	"strconv"
 )
 
 type Api struct {
@@ -25,6 +27,9 @@ func (c *Api) GetProduct(offerId uint64) (*model.ProductInfo, error) {
 	err := c.client.Do(models.NewRequest(consts.FENXIAO_NAMESPACE, req), resp)
 	if err != nil {
 		return nil, err
+	}
+	if resp.ProductInfo == nil {
+		return nil, errors.New("[" + strconv.FormatUint(offerId, 10) + "]resp.ProductInfo is nil")
 	}
 	return resp.ProductInfo, err
 }
